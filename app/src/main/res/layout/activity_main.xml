@@ -67,5 +67,15 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerbtn"
+        android:text="Criar nova conta"
+        android:backgroundTint="#FF0000"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"/>
+
 
 </RelativeLayout>

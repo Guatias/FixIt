@@ -34,11 +34,11 @@ public class register_activity extends AppCompatActivity {
 
         MaterialButton confirm_register = (MaterialButton) findViewById(R.id.confirmregisterbtn);
 
-        if(mAuth.getCurrentUser() != null){
+        /*if(mAuth.getCurrentUser() != null){
             Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(main_activity);
             finish();
-        }
+        }*/
 
         confirm_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,11 +54,6 @@ public class register_activity extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(senha_string)){
-                    senha.setError("Preencha com seu email");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(senha_string)){
                     senha.setError("Crie uma senha");
                     return;
                 }
@@ -69,7 +64,7 @@ public class register_activity extends AppCompatActivity {
                 }
 
                 if(!confirmar_senha_string.equals(senha_string)){
-                    confirmar_senha.setError("Sen nao coincidem");
+                    confirmar_senha.setError("Senhas não coincidem");
                     return;
                 }
 

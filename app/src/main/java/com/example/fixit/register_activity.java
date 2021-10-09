@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class register_activity extends AppCompatActivity {
 
@@ -44,35 +46,50 @@ public class register_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String nome_string = nome.getText().toString();
+                String sobrenome_string = sobrenome.getText().toString();
                 String email_string = email.getText().toString();
                 String senha_string = senha.getText().toString();
                 String confirmar_senha_string = confirmar_senha.getText().toString();
 
-                if(TextUtils.isEmpty(email_string)){
+                if (TextUtils.isEmpty(email_string)) {
                     email.setError("Preencha com seu email");
                     return;
                 }
 
-                if(TextUtils.isEmpty(senha_string)){
+                if (TextUtils.isEmpty(senha_string)) {
                     senha.setError("Crie uma senha");
                     return;
                 }
 
-                if(TextUtils.isEmpty(confirmar_senha_string)){
+                if (TextUtils.isEmpty(confirmar_senha_string)) {
                     confirmar_senha.setError("Confirme sua senha");
                     return;
                 }
 
-                if(!confirmar_senha_string.equals(senha_string)){
+                if (!confirmar_senha_string.equals(senha_string)) {
                     confirmar_senha.setError("Senhas não coincidem");
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email_string,senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                try {
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("usuarios");
+
+                    UserHelperClass helperClass = new UserHelperClass(nome_string,sobrenome_string,email_string);
+
+                    myRef.setValue(helperClass);
+
+                } catch (Exception ex) {
+                    Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(register_activity.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
                             Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(main_activity);
@@ -82,10 +99,8 @@ public class register_activity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
-
     }
 
 }

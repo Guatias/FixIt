@@ -4,15 +4,13 @@ public class UserHelperClass {
 
     String nome;
     String sobrenome;
-    String email;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String nome, String sobrenome, String email) {
+    public UserHelperClass(String nome, String sobrenome) {
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.email = email;
     }
 
     public String getNome() {
@@ -31,11 +29,4 @@ public class UserHelperClass {
         this.sobrenome = sobrenome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

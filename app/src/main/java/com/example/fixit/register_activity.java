@@ -36,12 +36,6 @@ public class register_activity extends AppCompatActivity {
 
         MaterialButton confirm_register = (MaterialButton) findViewById(R.id.confirmregisterbtn);
 
-        /*if(mAuth.getCurrentUser() != null){
-            Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(main_activity);
-            finish();
-        }*/
-
         confirm_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +46,16 @@ public class register_activity extends AppCompatActivity {
                 String senha_string = senha.getText().toString();
                 String confirmar_senha_string = confirmar_senha.getText().toString();
 
+                if (TextUtils.isEmpty(nome_string)) {
+                    nome.setError("Preencha com seu nome");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(sobrenome_string)) {
+                    sobrenome.setError("Preencha com seu sobrenome");
+                    return;
+                }
+
                 if (TextUtils.isEmpty(email_string)) {
                     email.setError("Preencha com seu email");
                     return;
@@ -59,6 +63,11 @@ public class register_activity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(senha_string)) {
                     senha.setError("Crie uma senha");
+                    return;
+                }
+
+                if(senha_string.length() < 6){
+                    senha.setError("Senha deve conter no minimo 6 caracteres");
                     return;
                 }
 
@@ -77,7 +86,7 @@ public class register_activity extends AppCompatActivity {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("usuarios");
 
-                    UserHelperClass helperClass = new UserHelperClass(nome_string,sobrenome_string,email_string);
+                    UserHelperClass helperClass = new UserHelperClass(nome_string,sobrenome_string);
 
                     myRef.setValue(helperClass);
 
@@ -85,7 +94,7 @@ public class register_activity extends AppCompatActivity {
                     Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                /*mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -94,11 +103,15 @@ public class register_activity extends AppCompatActivity {
                             Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(main_activity);
                         } else {
-                            Toast.makeText(register_activity.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            if(task.getException().getMessage().contains("email address is already")){
+                                Toast.makeText(register_activity.this, "Usuario não criado: Email já Cadastrado", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(register_activity.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                     }
-                });
+                });*/
             }
         });
     }

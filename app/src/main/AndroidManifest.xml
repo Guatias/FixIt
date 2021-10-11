@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FixIt">
         <activity
+            android:name=".activity_register_2"
+            android:exported="true" />
+        <activity
             android:name=".register_activity"
             android:exported="true" />
         <activity

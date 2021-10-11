@@ -34,9 +34,9 @@ public class register_activity extends AppCompatActivity {
         TextView senha = (TextView) findViewById(R.id.passwordedittxt);
         TextView confirmar_senha = (TextView) findViewById(R.id.confirmpasswordedittxt);
 
-        MaterialButton confirm_register = (MaterialButton) findViewById(R.id.confirmregisterbtn);
+        MaterialButton proxima_pagina = (MaterialButton) findViewById(R.id.nextpagebtn);
 
-        confirm_register.setOnClickListener(new View.OnClickListener() {
+        proxima_pagina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -81,7 +81,10 @@ public class register_activity extends AppCompatActivity {
                     return;
                 }
 
-                try {
+                Intent register2 = new Intent(getApplicationContext(), activity_register_2.class);
+                startActivity(register2);
+
+               /* try {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("usuarios");
@@ -94,7 +97,7 @@ public class register_activity extends AppCompatActivity {
                     Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                /*mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 

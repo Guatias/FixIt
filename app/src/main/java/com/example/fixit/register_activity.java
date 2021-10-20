@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class register_activity extends AppCompatActivity {
 
@@ -61,6 +63,9 @@ public class register_activity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email_string)) {
                     email.setError("Preencha com seu email");
+                    return;
+                } else if(!isValidEmailAddress(email_string)){
+                    email.setError("Insira um email válido");
                     return;
                 }
 
@@ -134,6 +139,13 @@ public class register_activity extends AppCompatActivity {
 
         }
         return false;
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPat.matcher(email);
+        return matcher.find();
     }
 
 }

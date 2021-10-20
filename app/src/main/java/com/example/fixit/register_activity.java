@@ -15,8 +15,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class register_activity extends AppCompatActivity {
 
@@ -81,7 +84,35 @@ public class register_activity extends AppCompatActivity {
                     return;
                 }
 
+                try {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot :dataSnapshot.getChildren()){
+                                if (snapshot.getValue().toString() == email_string){
+                                    Toast.makeText(register_activity.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                } catch (Exception ex){
+                    Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                UserHelperClass user = new UserHelperClass();
+                user.setNome(nome_string);
+                user.setSobrenome(sobrenome_string);
+                user.setEmail(email_string);
+
                 Intent register2 = new Intent(getApplicationContext(), activity_register_2.class);
+                register2.putExtra("user", user);
                 startActivity(register2);
 
                /* try {

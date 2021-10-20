@@ -4,5 +4,6 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:singleLine="true"
-    android:popupBackground="@android:color/transparent"
-    android:textColor="@color/white"/>
+    android:textColor="@color/white"
+    android:textSize="18sp"
+    android:padding="20dp"/>

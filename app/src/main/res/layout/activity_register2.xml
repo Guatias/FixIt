@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/registertxt"
-        android:text="Register"
+        android:text="Cadastro"
         android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold"
@@ -29,7 +29,6 @@
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:padding="20dp"
-        android:drawablePadding="20dp"
         android:inputType="number"/>
 
     <EditText
@@ -42,7 +41,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawablePadding="20dp"
         android:hint="Celular"
         android:inputType="phone"
         android:padding="20dp"
@@ -59,7 +57,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawablePadding="20dp"
         android:hint="Data de Nascimento"
         android:inputType="date"
         android:padding="20dp"
@@ -87,6 +84,8 @@
         android:layout_marginRight="10dp"
         android:background="#30ffffff"
         android:minHeight="@android:dimen/notification_large_icon_height"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:popupBackground="#30ffffff"
+        android:dropDownVerticalOffset="@android:dimen/notification_large_icon_height"/>
 
 </RelativeLayout>

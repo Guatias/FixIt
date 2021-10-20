@@ -1,17 +1,40 @@
 package com.example.fixit;
 
-public class UserHelperClass {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class UserHelperClass implements Parcelable {
 
     String nome;
     String sobrenome;
+    String email;
+    String celular;
+    String data_nasc;
+    String tipo_conta;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String nome, String sobrenome) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
+    protected UserHelperClass(Parcel in) {
+        nome = in.readString();
+        sobrenome = in.readString();
+        email = in.readString();
+        celular = in.readString();
+        data_nasc = in.readString();
+        tipo_conta = in.readString();
     }
+
+    public static final Creator<UserHelperClass> CREATOR = new Creator<UserHelperClass>() {
+        @Override
+        public UserHelperClass createFromParcel(Parcel in) {
+            return new UserHelperClass(in);
+        }
+
+        @Override
+        public UserHelperClass[] newArray(int size) {
+            return new UserHelperClass[size];
+        }
+    };
 
     public String getNome() {
         return nome;
@@ -29,4 +52,50 @@ public class UserHelperClass {
         this.sobrenome = sobrenome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getData_nasc() {
+        return data_nasc;
+    }
+
+    public void setData_nasc(String data_nasc) {
+        this.data_nasc = data_nasc;
+    }
+
+    public String getTipo_conta() {
+        return tipo_conta;
+    }
+
+    public void setTipo_conta(String tipo_conta) {
+        this.tipo_conta = tipo_conta;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeString(sobrenome);
+        dest.writeString(email);
+        dest.writeString(celular);
+        dest.writeString(data_nasc);
+        dest.writeString(tipo_conta);
+    }
 }

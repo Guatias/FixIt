@@ -1,7 +1,9 @@
 package com.example.fixit;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +14,10 @@ import android.widget.Toast;
 
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,6 +26,8 @@ public class activity_register_2 extends AppCompatActivity {
 
     private String[] tipo = new String[]{"Cliente", "Profissional", "Tipo da Conta"};
     private FirebaseAuth mAuth;
+    private String email;
+    private String senha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,9 @@ public class activity_register_2 extends AppCompatActivity {
                 String celular_string = celular.getText().toString();
                 String datanasc_string = datanasc.getText().toString();
 
+                cpf_string = cpf_string.replace(".","");
+                cpf_string = cpf_string.replace("-","");
+
                 if (TextUtils.isEmpty(cpf_string)) {
                     cpf.setError("Preencha com seu CPF");
                     return;
@@ -103,6 +113,24 @@ public class activity_register_2 extends AppCompatActivity {
                 } catch (Exception ex) {
                     Toast.makeText(activity_register_2.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
+                email = user.getEmail();
+                senha = getIntent().getExtras().getString("senha");
+
+                mAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(activity_register_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
+                            Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(main_activity);
+                        } else {
+                                Toast.makeText(activity_register_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                });
+
             }
         });
 

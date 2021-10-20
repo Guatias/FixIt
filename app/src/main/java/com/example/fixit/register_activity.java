@@ -10,10 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,9 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class register_activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private boolean allow_continue = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +86,27 @@ public class register_activity extends AppCompatActivity {
 
                 try {
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
-                    reference.addValueEventListener(new ValueEventListener() {
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot :dataSnapshot.getChildren()){
-                                if (snapshot.getValue().toString() == email_string){
-                                    Toast.makeText(register_activity.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
+                            if(checkEmail((Map<String, Object>) dataSnapshot.getValue(), email_string)){
+                                Toast.makeText(register_activity.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
+                                allow_continue = false;
+                            } else {
+                                allow_continue = true;
+                            }
+
+                            if(allow_continue) {
+
+                                UserHelperClass user = new UserHelperClass();
+                                user.setNome(nome_string);
+                                user.setSobrenome(sobrenome_string);
+                                user.setEmail(email_string);
+
+                                Intent register2 = new Intent(getApplicationContext(), activity_register_2.class);
+                                register2.putExtra("user", user);
+                                register2.putExtra("senha",senha_string);
+                                startActivity(register2);
                             }
                         }
 
@@ -105,49 +118,22 @@ public class register_activity extends AppCompatActivity {
                 } catch (Exception ex){
                     Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
-                UserHelperClass user = new UserHelperClass();
-                user.setNome(nome_string);
-                user.setSobrenome(sobrenome_string);
-                user.setEmail(email_string);
-
-                Intent register2 = new Intent(getApplicationContext(), activity_register_2.class);
-                register2.putExtra("user", user);
-                startActivity(register2);
-
-               /* try {
-
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("usuarios");
-
-                    UserHelperClass helperClass = new UserHelperClass(nome_string,sobrenome_string);
-
-                    myRef.setValue(helperClass);
-
-                } catch (Exception ex) {
-                    Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-                mAuth.createUserWithEmailAndPassword(email_string, senha_string).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(register_activity.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
-                            Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(main_activity);
-                        } else {
-                            if(task.getException().getMessage().contains("email address is already")){
-                                Toast.makeText(register_activity.this, "Usuario não criado: Email já Cadastrado", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(register_activity.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                    }
-                });*/
             }
         });
+    }
+
+    private boolean checkEmail(Map<String, Object> users, String email) {
+        try {
+            for (Map.Entry<String, Object> entry : users.entrySet()) {
+
+                Map singleUser = (Map) entry.getValue();
+                if (singleUser.get("email").toString().equals(email)) return true;
+            }
+            return false;
+        } catch (Exception ex){
+
+        }
+        return false;
     }
 
 }

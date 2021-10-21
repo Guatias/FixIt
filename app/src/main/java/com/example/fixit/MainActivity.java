@@ -16,8 +16,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +64,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Usuario Autenticado com Sucesso", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, "Usuario Autenticado com Sucesso", Toast.LENGTH_SHORT).show();
+                            try {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        UserHelperClass user = new UserHelperClass();
+                                        user.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), email_string);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            } catch (Exception ex){
+                                Toast.makeText(MainActivity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(MainActivity.this, "Usuario ou Senha Inválido", Toast.LENGTH_SHORT).show();
                         }

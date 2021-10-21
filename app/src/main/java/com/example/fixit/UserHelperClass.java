@@ -3,6 +3,8 @@ package com.example.fixit;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Map;
+
 public class UserHelperClass implements Parcelable {
 
     String nome;
@@ -97,5 +99,24 @@ public class UserHelperClass implements Parcelable {
         dest.writeString(celular);
         dest.writeString(data_nasc);
         dest.writeString(tipo_conta);
+    }
+
+    public void retrieveUserData(Map<String, Object> users, String email) {
+        try {
+            for (Map.Entry<String, Object> entry : users.entrySet()) {
+
+                Map singleUser = (Map) entry.getValue();
+                if (singleUser.get("email").toString().equals(email)){
+                    this.celular = singleUser.get("celular").toString();
+                    this.data_nasc = singleUser.get("data_nasc").toString();
+                    this.email = singleUser.get("email").toString();
+                    this.nome = singleUser.get("nome").toString();
+                    this.sobrenome = singleUser.get("sobrenome").toString();
+                    this.tipo_conta = singleUser.get("tipo_conta").toString();
+                }
+            }
+        } catch (Exception ex){
+
+        }
     }
 }

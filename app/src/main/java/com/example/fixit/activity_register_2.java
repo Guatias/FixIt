@@ -78,16 +78,22 @@ public class activity_register_2 extends AppCompatActivity {
                 if (TextUtils.isEmpty(cpf_string)) {
                     cpf.setError("Preencha com seu CPF");
                     return;
+                } else if(cpf_string.length() != 11){
+                    cpf.setError("CPF Inválido");
                 }
 
                 if (TextUtils.isEmpty(celular_string)) {
                     celular.setError("Preencha com o numero de seu celular");
                     return;
+                } else if(celular_string.length() != 14){
+                    celular.setError("Número Inválido");
                 }
 
                 if (TextUtils.isEmpty(datanasc_string)) {
                     datanasc.setError("Preencha com sua data de nascimento");
                     return;
+                } else if(datanasc_string.length() != 10){
+                    datanasc.setError("Data Inválida");
                 }
 
                 if (tipo_conta.getSelectedItem().toString() == "Tipo da Conta") {

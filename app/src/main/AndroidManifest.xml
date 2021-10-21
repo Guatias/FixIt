@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FixIt">
         <activity
+            android:name=".ClienteActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cliente"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.FixIt.NoActionBar" />
+        <activity
             android:name=".activity_register_2"
             android:exported="true" />
         <activity

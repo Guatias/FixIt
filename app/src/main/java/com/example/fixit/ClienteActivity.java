@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.example.fixit.ui.home.ServicoAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -16,13 +17,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.databinding.ActivityClienteBinding;
+
+import java.util.ArrayList;
+
+import models.Servicos;
 
 public class ClienteActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityClienteBinding binding;
+    private ServicoAdapter servicoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,10 @@ public class ClienteActivity extends AppCompatActivity {
         TextView email_menu = (TextView)navView.findViewById(R.id.emailMenu);
         nome_menu.setText(user.getNome());
         email_menu.setText(user.getEmail());
+
+        servicoAdapter = new ServicoAdapter(new ArrayList<>(Servicos.fakeServicos()));
+        RecyclerView rv = (RecyclerView) findViewById(R.id.recicler_view_tasks);
+        rv.setAdapter(servicoAdapter);
     }
 
     @Override

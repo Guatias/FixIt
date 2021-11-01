@@ -11,9 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBindings;
 
 import com.example.fixit.R;
 import com.example.fixit.databinding.FragmentHomeBinding;
+
+import java.util.ArrayList;
+
+import models.Servico;
+import models.Servicos;
 
 public class HomeFragment extends Fragment {
 
@@ -22,6 +29,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 

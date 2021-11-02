@@ -68,9 +68,9 @@ public class ClienteActivity extends AppCompatActivity {
         nome_menu.setText(user.getNome());
         email_menu.setText(user.getEmail());
 
-        servicoAdapter = new ServicoAdapter(new ArrayList<>(Servicos.fakeServicos()));
+       /* servicoAdapter = new ServicoAdapter(new ArrayList<>(Servicos.fakeServicos()));
         RecyclerView rv = (RecyclerView) findViewById(R.id.recicler_view_tasks);
-        rv.setAdapter(servicoAdapter);
+        rv.setAdapter(servicoAdapter);*/
     }
 
     @Override

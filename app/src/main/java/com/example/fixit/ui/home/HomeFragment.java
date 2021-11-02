@@ -26,6 +26,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+    private ServicoAdapter servicoAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +36,10 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        servicoAdapter = new ServicoAdapter(new ArrayList<>(Servicos.fakeServicos()));
+        RecyclerView rv = binding.reciclerViewTasks;
+        rv.setAdapter(servicoAdapter);
 
        // final TextView textView = binding.textHome;
        /* homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

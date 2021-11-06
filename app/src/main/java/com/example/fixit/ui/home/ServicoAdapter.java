@@ -3,6 +3,7 @@ package com.example.fixit.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,14 +44,24 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoV
     class ServicoViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtproblema;
+        TextView txtdescricao;
+        ImageView servico_icon;
 
         public ServicoViewHolder(@NonNull View itemView) {
             super(itemView);
             txtproblema = itemView.findViewById(R.id.txt_problem);
+            txtdescricao = itemView.findViewById(R.id.txt_description);
+            servico_icon = itemView.findViewById(R.id.serv_icon);
         }
 
         public void bind(Servico servico) {
+            if (servico.getTipo().equals("Eletrico")){
+                servico_icon.setImageResource(R.drawable.idea);
+            } else {
+                servico_icon.setImageResource(R.drawable.wrench);
+            }
             txtproblema.setText(servico.getProblema());
+            txtdescricao.setText(servico.getDescricao());
         }
     }
 }

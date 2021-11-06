@@ -1,5 +1,10 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 public class Servico {
 
     private String problema;
@@ -28,6 +33,32 @@ public class Servico {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Servico> retrieveServicoData(Map<String, Object> users, String email) {
+
+        Servico servicoData = new Servico();
+        ArrayList<Servico> array = null;
+        List<Servico> list = new ArrayList<>();
+
+        try {
+            for (Map.Entry<String, Object> entry : users.entrySet()) {
+
+                Map singleUser = (Map) entry.getValue();
+                if (singleUser.get("email").toString().equals(email)){
+                    servicoData = new Servico();
+                    servicoData.problema = singleUser.get("Problema").toString();
+                    servicoData.descricao = singleUser.get("Descricao").toString();
+                    servicoData.tipo = singleUser.get("Tipo").toString();
+                    list.add(servicoData);
+                }
+            }
+        } catch (Exception ex){
+
+        }
+
+        return list;
+
     }
 
     public static class ServicoBuilder {

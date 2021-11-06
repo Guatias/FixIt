@@ -6,8 +6,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fixit.ui.home.ServicoAdapter;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,13 +32,21 @@ public class ClienteActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityClienteBinding binding;
-    private ServicoAdapter servicoAdapter;
+    private UserHelperClass user;
+
+    public UserHelperClass getUser() {
+        return user;
+    }
+
+    public void showToast(String message){
+        Toast.makeText(ClienteActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        UserHelperClass user = getIntent().getParcelableExtra("user");
+        user = getIntent().getParcelableExtra("user");
 
         MenuItem sairopt = (MenuItem) findViewById(R.id.action_settings);
 
@@ -43,13 +54,7 @@ public class ClienteActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarCliente.toolbar);
-        /*binding.appBarCliente.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -67,10 +72,6 @@ public class ClienteActivity extends AppCompatActivity {
         TextView email_menu = (TextView)navView.findViewById(R.id.emailMenu);
         nome_menu.setText(user.getNome());
         email_menu.setText(user.getEmail());
-
-       /* servicoAdapter = new ServicoAdapter(new ArrayList<>(Servicos.fakeServicos()));
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recicler_view_tasks);
-        rv.setAdapter(servicoAdapter);*/
     }
 
     @Override

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Novo_Servico_Activity">
+
+    <ImageView
+        android:id="@+id/new_serv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:src="@drawable/idea" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_serv_tv"
+        android:layout_below="@id/new_serv_icon"
+        android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:text="Novo Serviço Elétrico"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_serv_problem"
+        android:layout_below="@+id/new_serv_tv"
+        android:background="@color/darkerGrey"
+        android:hint="Problema"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:padding="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/new_serv_description"
+        android:layout_below="@+id/new_serv_problem"
+        android:background="@color/darkerGrey"
+        android:hint="Descrição"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:layout_margin="10dp"
+        android:padding="20dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_serv_confirm_button"
+        android:text="Enviar"
+        android:backgroundTint="@color/teal_200"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_serv_cancel_button"
+        android:text="Cancelar"
+        android:backgroundTint="#FF0000"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
+</RelativeLayout>

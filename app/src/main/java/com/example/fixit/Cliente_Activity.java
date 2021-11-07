@@ -1,6 +1,5 @@
 package com.example.fixit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,10 +7,6 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fixit.ui.home.ServicoAdapter;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -20,15 +15,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.databinding.ActivityClienteBinding;
 
-import java.util.ArrayList;
-
-import models.Servicos;
-
-public class ClienteActivity extends AppCompatActivity {
+public class Cliente_Activity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityClienteBinding binding;
@@ -39,7 +29,7 @@ public class ClienteActivity extends AppCompatActivity {
     }
 
     public void showToast(String message){
-        Toast.makeText(ClienteActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(Cliente_Activity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

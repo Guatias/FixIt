@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fixit.ClienteActivity;
+import com.example.fixit.Cliente_Activity;
+import com.example.fixit.Novo_Servico_Activity;
 import com.example.fixit.UserHelperClass;
 import com.example.fixit.databinding.FragmentHomeBinding;
 import com.github.clans.fab.FloatingActionButton;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import models.Servico;
-import models.Servicos;
 
 public class HomeFragment extends Fragment {
 
@@ -48,7 +46,7 @@ public class HomeFragment extends Fragment {
         Intent i = getActivity().getIntent();
 
         //user = (UserHelperClass) i.getSerializableExtra("user");
-        user = ((ClienteActivity) getActivity()).getUser();
+        user = ((Cliente_Activity) getActivity()).getUser();
 
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -57,7 +55,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         try {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Task");
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("tasks");
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,7 +72,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         } catch (Exception ex) {
-            ((ClienteActivity) getActivity()).showToast("Ocorreu um erro: " + ex.getMessage());
+            ((Cliente_Activity) getActivity()).showToast("Ocorreu um erro: " + ex.getMessage());
         }
 
         add_button = binding.addButton;
@@ -84,14 +82,22 @@ public class HomeFragment extends Fragment {
         eletric_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ClienteActivity) getActivity()).showToast("Eletric");
+                Intent novo_servico = new Intent(((Cliente_Activity) getActivity()).getApplicationContext(), Novo_Servico_Activity.class);
+                novo_servico.putExtra("user", user);
+                novo_servico.putExtra("tipo", "Eletrico");
+                startActivity(novo_servico);
+                ((Cliente_Activity) getActivity()).finish();
             }
         });
 
         mechanic_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ClienteActivity) getActivity()).showToast("Mechanic");
+                Intent novo_servico = new Intent(((Cliente_Activity) getActivity()).getApplicationContext(), Novo_Servico_Activity.class);
+                novo_servico.putExtra("user", user);
+                novo_servico.putExtra("tipo", "Mecanico");
+                startActivity(novo_servico);
+                ((Cliente_Activity) getActivity()).finish();
             }
         });
 

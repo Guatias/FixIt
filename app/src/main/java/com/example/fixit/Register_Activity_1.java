@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class register_activity extends AppCompatActivity {
+public class Register_Activity_1 extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private boolean allow_continue = true;
@@ -95,7 +95,7 @@ public class register_activity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(checkEmail((Map<String, Object>) dataSnapshot.getValue(), email_string)){
-                                Toast.makeText(register_activity.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register_Activity_1.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
                                 allow_continue = false;
                             } else {
                                 allow_continue = true;
@@ -108,7 +108,7 @@ public class register_activity extends AppCompatActivity {
                                 user.setSobrenome(sobrenome_string);
                                 user.setEmail(email_string);
 
-                                Intent register2 = new Intent(getApplicationContext(), activity_register_2.class);
+                                Intent register2 = new Intent(getApplicationContext(), Register_Activity_2.class);
                                 register2.putExtra("user", user);
                                 register2.putExtra("senha",senha_string);
                                 startActivity(register2);
@@ -121,7 +121,7 @@ public class register_activity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception ex){
-                    Toast.makeText(register_activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register_Activity_1.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

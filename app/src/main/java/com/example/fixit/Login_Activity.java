@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
@@ -73,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
                                         UserHelperClass user = new UserHelperClass();
                                         user.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), email_string);
                                         if(user.getTipo_conta().equals("Cliente")) {
-                                            Intent cliente_activity = new Intent(getApplicationContext(), ClienteActivity.class);
+                                            finish();
+                                            Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
                                             cliente_activity.putExtra("user", user);
                                             startActivity(cliente_activity);
                                         }
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                             } catch (Exception ex){
-                                Toast.makeText(MainActivity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(MainActivity.this, "Usuario ou Senha Inválido", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login_Activity.this, "Usuario ou Senha Inválido", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent register_activity = new Intent(getApplicationContext(), register_activity.class);
+                Intent register_activity = new Intent(getApplicationContext(), Register_Activity_1.class);
                 startActivity(register_activity);
 
             }

@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class activity_register_2 extends AppCompatActivity {
+public class Register_Activity_2 extends AppCompatActivity {
 
     private String[] tipo = new String[]{"Cliente", "Profissional", "Tipo da Conta"};
     private FirebaseAuth mAuth;
@@ -97,7 +97,7 @@ public class activity_register_2 extends AppCompatActivity {
                 }
 
                 if (tipo_conta.getSelectedItem().toString() == "Tipo da Conta") {
-                    Toast.makeText(activity_register_2.this, "Selecione o tipo da conta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register_Activity_2.this, "Selecione o tipo da conta", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -117,7 +117,7 @@ public class activity_register_2 extends AppCompatActivity {
                     myRef.child(cpf_string).setValue(user);
 
                 } catch (Exception ex) {
-                    Toast.makeText(activity_register_2.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 email = user.getEmail();
@@ -128,11 +128,11 @@ public class activity_register_2 extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(activity_register_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
-                            Intent main_activity = new Intent(getApplicationContext(), MainActivity.class);
+                            Toast.makeText(Register_Activity_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
+                            Intent main_activity = new Intent(getApplicationContext(), Login_Activity.class);
                             startActivity(main_activity);
                         } else {
-                                Toast.makeText(activity_register_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                 });

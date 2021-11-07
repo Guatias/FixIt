@@ -10,19 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FixIt">
         <activity
-            android:name=".ClienteActivity"
+            android:name=".Novo_Servico_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Cliente_Activity"
             android:exported="false"
             android:label="@string/title_activity_cliente"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Login_Activity"
             android:theme="@style/Theme.FixIt.NoActionBar" />
         <activity
-            android:name=".activity_register_2"
+            android:name=".Register_Activity_2"
             android:exported="true" />
         <activity
-            android:name=".register_activity"
+            android:name=".Register_Activity_1"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

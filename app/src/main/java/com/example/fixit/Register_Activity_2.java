@@ -35,11 +35,11 @@ public class Register_Activity_2 extends AppCompatActivity {
         setContentView(R.layout.activity_register2);
         mAuth = FirebaseAuth.getInstance();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, tipo){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, tipo) {
             @Override
             public int getCount() {
                 // to show hint "Select Gender" and don't able to select
-                return tipo.length-1;
+                return tipo.length - 1;
             }
         };
 
@@ -72,27 +72,27 @@ public class Register_Activity_2 extends AppCompatActivity {
                 String celular_string = celular.getText().toString();
                 String datanasc_string = datanasc.getText().toString();
 
-                cpf_string = cpf_string.replace(".","");
-                cpf_string = cpf_string.replace("-","");
+                cpf_string = cpf_string.replace(".", "");
+                cpf_string = cpf_string.replace("-", "");
 
                 if (TextUtils.isEmpty(cpf_string)) {
                     cpf.setError("Preencha com seu CPF");
                     return;
-                } else if(cpf_string.length() != 11){
+                } else if (cpf_string.length() != 11) {
                     cpf.setError("CPF Inválido");
                 }
 
                 if (TextUtils.isEmpty(celular_string)) {
                     celular.setError("Preencha com o numero de seu celular");
                     return;
-                } else if(celular_string.length() != 14){
+                } else if (celular_string.length() != 14) {
                     celular.setError("Número Inválido");
                 }
 
                 if (TextUtils.isEmpty(datanasc_string)) {
                     datanasc.setError("Preencha com sua data de nascimento");
                     return;
-                } else if(datanasc_string.length() != 10){
+                } else if (datanasc_string.length() != 10) {
                     datanasc.setError("Data Inválida");
                 }
 
@@ -129,12 +129,15 @@ public class Register_Activity_2 extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Toast.makeText(Register_Activity_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
+                            Register_Activity_1.ra.finish();
+                            Login_Activity.la.finish();
+                            finish();
                             Intent main_activity = new Intent(getApplicationContext(), Login_Activity.class);
                             startActivity(main_activity);
                         } else {
-                                Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                    }
                 });
 
             }

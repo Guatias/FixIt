@@ -3,6 +3,7 @@ package com.example.fixit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,11 +27,13 @@ public class Register_Activity_1 extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private boolean allow_continue = true;
+    public static Activity ra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ra = this;
         mAuth = FirebaseAuth.getInstance();
 
         TextView nome = (TextView) findViewById(R.id.firstnameedittxt);
@@ -64,7 +67,7 @@ public class Register_Activity_1 extends AppCompatActivity {
                 if (TextUtils.isEmpty(email_string)) {
                     email.setError("Preencha com seu email");
                     return;
-                } else if(!isValidEmailAddress(email_string)){
+                } else if (!isValidEmailAddress(email_string)) {
                     email.setError("Insira um email válido");
                     return;
                 }
@@ -74,7 +77,7 @@ public class Register_Activity_1 extends AppCompatActivity {
                     return;
                 }
 
-                if(senha_string.length() < 6){
+                if (senha_string.length() < 6) {
                     senha.setError("Senha deve conter no minimo 6 caracteres");
                     return;
                 }
@@ -94,14 +97,14 @@ public class Register_Activity_1 extends AppCompatActivity {
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(checkEmail((Map<String, Object>) dataSnapshot.getValue(), email_string)){
+                            if (checkEmail((Map<String, Object>) dataSnapshot.getValue(), email_string)) {
                                 Toast.makeText(Register_Activity_1.this, "Email ja Cadastrado", Toast.LENGTH_SHORT).show();
                                 allow_continue = false;
                             } else {
                                 allow_continue = true;
                             }
 
-                            if(allow_continue) {
+                            if (allow_continue) {
 
                                 UserHelperClass user = new UserHelperClass();
                                 user.setNome(nome_string);
@@ -110,7 +113,7 @@ public class Register_Activity_1 extends AppCompatActivity {
 
                                 Intent register2 = new Intent(getApplicationContext(), Register_Activity_2.class);
                                 register2.putExtra("user", user);
-                                register2.putExtra("senha",senha_string);
+                                register2.putExtra("senha", senha_string);
                                 startActivity(register2);
                             }
                         }
@@ -120,7 +123,7 @@ public class Register_Activity_1 extends AppCompatActivity {
 
                         }
                     });
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     Toast.makeText(Register_Activity_1.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -135,7 +138,7 @@ public class Register_Activity_1 extends AppCompatActivity {
                 if (singleUser.get("email").toString().equals(email)) return true;
             }
             return false;
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         return false;

@@ -1,5 +1,6 @@
 package com.example.fixit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +18,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fixit.databinding.ActivityClienteBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Cliente_Activity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityClienteBinding binding;
     private UserHelperClass user;
+    private FirebaseAuth mAuth;
 
     public UserHelperClass getUser() {
         return user;
@@ -36,6 +39,7 @@ public class Cliente_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mAuth = FirebaseAuth.getInstance();
         user = getIntent().getParcelableExtra("user");
 
         MenuItem sairopt = (MenuItem) findViewById(R.id.action_settings);
@@ -60,7 +64,7 @@ public class Cliente_Activity extends AppCompatActivity {
         View navView =  navigationView.inflateHeaderView(R.layout.nav_header_cliente);
         TextView nome_menu = (TextView)navView.findViewById(R.id.nameMenu);
         TextView email_menu = (TextView)navView.findViewById(R.id.emailMenu);
-        nome_menu.setText(user.getNome());
+        nome_menu.setText("Olá " + user.getNome() + "!");
         email_menu.setText(user.getEmail());
     }
 
@@ -84,6 +88,9 @@ public class Cliente_Activity extends AppCompatActivity {
     }
 
     private void returnMenu() {
+        Intent login_activity = new Intent(getApplicationContext(), Login_Activity.class);
+        startActivity(login_activity);
+        mAuth.signOut();
         finish();
     }
 

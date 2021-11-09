@@ -1,5 +1,6 @@
 package com.example.fixit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ public class Cliente_Activity extends AppCompatActivity {
     private ActivityClienteBinding binding;
     private UserHelperClass user;
     private FirebaseAuth mAuth;
+    public static Activity ca;
 
     public UserHelperClass getUser() {
         return user;
@@ -38,6 +40,7 @@ public class Cliente_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ca = this;
 
         mAuth = FirebaseAuth.getInstance();
         user = getIntent().getParcelableExtra("user");

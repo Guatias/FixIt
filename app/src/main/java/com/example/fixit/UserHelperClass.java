@@ -13,6 +13,7 @@ public class UserHelperClass implements Parcelable {
     String celular;
     String data_nasc;
     String tipo_conta;
+    String cpf;
 
     public UserHelperClass() {
     }
@@ -24,6 +25,7 @@ public class UserHelperClass implements Parcelable {
         celular = in.readString();
         data_nasc = in.readString();
         tipo_conta = in.readString();
+        cpf = in.readString();
     }
 
     public static final Creator<UserHelperClass> CREATOR = new Creator<UserHelperClass>() {
@@ -86,6 +88,14 @@ public class UserHelperClass implements Parcelable {
         this.tipo_conta = tipo_conta;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,6 +109,7 @@ public class UserHelperClass implements Parcelable {
         dest.writeString(celular);
         dest.writeString(data_nasc);
         dest.writeString(tipo_conta);
+        dest.writeString(cpf);
     }
 
     public void retrieveUserData(Map<String, Object> users, String email) {
@@ -113,6 +124,7 @@ public class UserHelperClass implements Parcelable {
                     this.nome = singleUser.get("nome").toString();
                     this.sobrenome = singleUser.get("sobrenome").toString();
                     this.tipo_conta = singleUser.get("tipo_conta").toString();
+                    this.cpf = singleUser.get("cpf").toString();
                 }
             }
         } catch (Exception ex){

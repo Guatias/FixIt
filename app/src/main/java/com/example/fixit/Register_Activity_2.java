@@ -19,8 +19,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 public class Register_Activity_2 extends AppCompatActivity {
 
@@ -28,6 +33,7 @@ public class Register_Activity_2 extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private String senha;
+    private boolean allow_continue = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,16 +83,20 @@ public class Register_Activity_2 extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(cpf_string)) {
                     cpf.setError("Preencha com seu CPF");
+                    allow_continue = false;
                     return;
                 } else if (cpf_string.length() != 11) {
                     cpf.setError("CPF Inválido");
+                    return;
                 }
 
                 if (TextUtils.isEmpty(celular_string)) {
                     celular.setError("Preencha com o numero de seu celular");
+                    allow_continue = false;
                     return;
                 } else if (celular_string.length() != 14) {
                     celular.setError("Número Inválido");
+                    return;
                 }
 
                 if (TextUtils.isEmpty(datanasc_string)) {
@@ -94,6 +104,7 @@ public class Register_Activity_2 extends AppCompatActivity {
                     return;
                 } else if (datanasc_string.length() != 10) {
                     datanasc.setError("Data Inválida");
+                    return;
                 }
 
                 if (tipo_conta.getSelectedItem().toString() == "Tipo da Conta") {
@@ -105,43 +116,108 @@ public class Register_Activity_2 extends AppCompatActivity {
 
                 UserHelperClass user = getIntent().getParcelableExtra("user");
 
+                user.setCpf(cpf_string);
                 user.setCelular(celular_string);
                 user.setData_nasc(datanasc_string);
                 user.setTipo_conta(tipo_conta_string);
 
                 try {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (checkCpf((Map<String, Object>) dataSnapshot.getValue(), user.getCpf())) {
+                                Toast.makeText(Register_Activity_2.this, "CPF ja Cadastrado", Toast.LENGTH_SHORT).show();
+                                allow_continue = false;
+                            } else {
+                                allow_continue = true;
+                            }
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("usuarios");
+                            if (allow_continue) {
 
-                    myRef.child(cpf_string).setValue(user);
+                                email = user.getEmail();
+                                senha = getIntent().getExtras().getString("senha");
 
+                                mAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                        if (task.isSuccessful()) {
+
+                                            try {
+                                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                DatabaseReference myRef = database.getReference("usuarios");
+
+                                                myRef.child(user.getCpf()).setValue(user);
+                                            } catch (Exception ex) {
+                                                Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            Toast.makeText(Register_Activity_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
+                                            Register_Activity_1.ra.finish();
+                                            Login_Activity.la.finish();
+                                            Intent main_activity = new Intent(getApplicationContext(), Login_Activity.class);
+                                            startActivity(main_activity);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 } catch (Exception ex) {
                     Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
-                email = user.getEmail();
-                senha = getIntent().getExtras().getString("senha");
-
-                mAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Register_Activity_2.this, "Usuário Criado com Sucesso", Toast.LENGTH_SHORT).show();
-                            Register_Activity_1.ra.finish();
-                            Login_Activity.la.finish();
-                            finish();
-                            Intent main_activity = new Intent(getApplicationContext(), Login_Activity.class);
-                            startActivity(main_activity);
-                        } else {
-                            Toast.makeText(Register_Activity_2.this, "Ocorreu um erro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
             }
         });
 
+        cpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    cpf.setHint("");
+                else
+                    cpf.setHint("CPF");
+            }
+        });
+
+        celular.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    celular.setHint("");
+                else
+                    celular.setHint("Celular com DDD");
+            }
+        });
+
+        datanasc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    datanasc.setHint("");
+                else
+                    datanasc.setHint("Data de Nascimento (dd/mm/aaaa)");
+            }
+        });
+
+    }
+
+    private boolean checkCpf(Map<String, Object> users, String cpf_string) {
+        try {
+            for (Map.Entry<String, Object> entry : users.entrySet()) {
+
+                Map singleUser = (Map) entry.getValue();
+                if (singleUser.get("cpf").toString().equals(cpf_string)) return true;
+            }
+            return false;
+        } catch (Exception ex) {
+
+        }
+        return false;
     }
 }

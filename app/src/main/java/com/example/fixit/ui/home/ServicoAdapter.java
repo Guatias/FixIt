@@ -18,9 +18,11 @@ import models.Servico;
 public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoViewHolder> {
 
     private final ArrayList<Servico> servicos;
+    private ReciclerViewClickListener listener;
 
-    public ServicoAdapter(ArrayList<Servico> servicos) {
+    public ServicoAdapter(ArrayList<Servico> servicos, ReciclerViewClickListener listener) {
         this.servicos = servicos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -41,7 +43,7 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoV
         return servicos.size();
     }
 
-    class ServicoViewHolder extends RecyclerView.ViewHolder {
+    class ServicoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView txtproblema;
         TextView txtdescricao;
@@ -52,6 +54,7 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoV
             txtproblema = itemView.findViewById(R.id.txt_problem);
             txtdescricao = itemView.findViewById(R.id.txt_description);
             servico_icon = itemView.findViewById(R.id.serv_icon);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Servico servico) {
@@ -63,5 +66,14 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoV
             txtproblema.setText(servico.getProblema());
             txtdescricao.setText(servico.getDescricao());
         }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
+        }
+    }
+
+    public interface ReciclerViewClickListener{
+        void onClick(View v, int position);
     }
 }

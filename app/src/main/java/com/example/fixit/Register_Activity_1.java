@@ -128,6 +128,51 @@ public class Register_Activity_1 extends AppCompatActivity {
                 }
             }
         });
+
+        nome.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    nome.setHint("");
+                else
+                    nome.setHint("Nome");
+            }
+        });
+
+        sobrenome.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    sobrenome.setHint("");
+                else
+                    sobrenome.setHint("Sobrenome");
+            }
+        });
+
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    email.setHint("");
+                else
+                    email.setHint("Email");
+            }
+        });
+
+        senha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    senha.setHint("");
+                else
+                    senha.setHint("Senha");
+            }
+        });
+
+        confirmar_senha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    confirmar_senha.setHint("");
+                else
+                    confirmar_senha.setHint("Confirmar Senha");
+            }
+        });
     }
 
     private boolean checkEmail(Map<String, Object> users, String email) {

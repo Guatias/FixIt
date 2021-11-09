@@ -1,16 +1,45 @@
 package models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.fixit.UserHelperClass;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class Servico {
+public class Servico implements Parcelable {
 
     private String problema;
     private String descricao;
     private String tipo;
     private String email;
+    private String id;
+
+    public Servico() {
+    }
+
+    protected Servico(Parcel in) {
+        problema = in.readString();
+        descricao = in.readString();
+        tipo = in.readString();
+        email = in.readString();
+        id = in.readString();
+    }
+
+    public static final Creator<Servico> CREATOR = new Creator<Servico>() {
+        @Override
+        public Servico createFromParcel(Parcel in) {
+            return new Servico(in);
+        }
+
+        @Override
+        public Servico[] newArray(int size) {
+            return new Servico[size];
+        }
+    };
 
     public String getProblema() {
         return problema;
@@ -44,6 +73,14 @@ public class Servico {
         return email;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public List<Servico> retrieveServicoData(Map<String, Object> users, String email) {
 
         Servico servicoData = new Servico();
@@ -59,6 +96,7 @@ public class Servico {
                     servicoData.problema = singleUser.get("problema").toString();
                     servicoData.descricao = singleUser.get("descricao").toString();
                     servicoData.tipo = singleUser.get("tipo").toString();
+                    servicoData.id = singleUser.get("id").toString();
                     list.add(servicoData);
                 }
             }
@@ -68,5 +106,19 @@ public class Servico {
 
         return list;
 
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(problema);
+        dest.writeString(descricao);
+        dest.writeString(tipo);
+        dest.writeString(email);
+        dest.writeString(id);
     }
 }

@@ -72,18 +72,20 @@ public class Novo_Servico_Activity extends AppCompatActivity {
                 novo.setDescricao(descricao_string);
                 novo.setTipo(tipo);
                 novo.setEmail(user.getEmail());
+                novo.setId(UUID.randomUUID().toString());
 
                 try {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("tasks");
 
-                    myRef.child(UUID.randomUUID().toString()).setValue(novo);
+                    myRef.child(novo.getId()).setValue(novo);
 
                 } catch (Exception ex) {
                     Toast.makeText(Novo_Servico_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
+                Cliente_Activity.ca.finish();
                 Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
                 cliente_activity.putExtra("user", user);
                 startActivity(cliente_activity);

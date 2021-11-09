@@ -37,6 +37,7 @@ public class Login_Activity extends AppCompatActivity {
         la = this;
 
         mAuth = FirebaseAuth.getInstance();
+        //mAuth.signOut();
         FirebaseUser current_user = mAuth.getCurrentUser();
         if (current_user != null) {
 
@@ -102,6 +103,24 @@ public class Login_Activity extends AppCompatActivity {
                             }
                         }
                     });
+                }
+            });
+
+            username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus)
+                        username.setHint("");
+                    else
+                        username.setHint("Email");
+                }
+            });
+
+            password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus)
+                        password.setHint("");
+                    else
+                        password.setHint("Senha");
                 }
             });
 

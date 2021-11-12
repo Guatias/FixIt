@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Editar_Servico_Activity">
+    tools:context=".Nova_Proposta_Activity">
 
     <ImageView
-        android:id="@+id/edit_serv_icon"
+        android:id="@+id/prop_serv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,8 +18,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_tv"
-        android:layout_below="@id/edit_serv_icon"
+        android:id="@+id/prop_serv_tv"
+        android:layout_below="@id/prop_serv_icon"
         android:layout_centerInParent="true"
         android:paddingTop="10dp"
         android:text="Serviço Elétrico"
@@ -30,10 +30,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_created_by"
-        android:layout_below="@+id/edit_serv_tv"
+        android:id="@+id/prop_created_by"
+        android:layout_below="@+id/prop_serv_tv"
         android:background="@drawable/rounded_et"
-        android:text="Criado por:"
+        android:hint="Proposta para:"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:layout_margin="10dp"
@@ -42,10 +42,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_problem"
-        android:layout_below="@+id/edit_created_by"
+        android:id="@+id/prop_serv_problem"
+        android:layout_below="@+id/prop_created_by"
         android:background="@drawable/rounded_et"
-        android:hint="Problema"
+        android:text="Problema: "
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:layout_margin="10dp"
@@ -54,10 +54,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:id="@+id/edit_serv_description"
-        android:layout_below="@+id/edit_serv_problem"
+        android:id="@+id/prop_serv_description"
+        android:layout_below="@+id/prop_serv_problem"
         android:background="@drawable/rounded_et"
-        android:hint="Descrição"
+        android:hint="Proposta"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:inputType="text|textMultiLine"
@@ -65,37 +65,27 @@
         android:layout_margin="10dp"
         android:padding="20dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
+    <me.abhinay.input.CurrencyEditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_save_button"
-        android:text="Salvar"
-        android:backgroundTint="@color/teal_200"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:id="@+id/prop_serv_value"
+        android:layout_below="@+id/prop_serv_description"
+        android:background="@drawable/rounded_et"
+        android:hint="Valor da Proposta (R$)"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:inputType="number"
+        android:padding="20dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_delete_button"
-        android:text="Deletar"
-        android:backgroundTint="#FF0000"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_create_button"
-        android:text="Criar Proposta"
+        android:id="@+id/prop_serv_send_button"
+        android:text="Enviar"
         android:backgroundTint="@color/teal_200"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

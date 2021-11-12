@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FixIt">
         <activity
+            android:name=".Nova_Proposta_Activity"
+            android:exported="false" />
+        <activity
             android:name=".Editar_Servico_Activity"
             android:exported="false" />
         <activity

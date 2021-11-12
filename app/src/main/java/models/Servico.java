@@ -97,8 +97,35 @@ public class Servico implements Parcelable {
                     servicoData.descricao = singleUser.get("descricao").toString();
                     servicoData.tipo = singleUser.get("tipo").toString();
                     servicoData.id = singleUser.get("id").toString();
-                    list.add(servicoData);
+                    servicoData.email = singleUser.get("email").toString();
+                list.add(servicoData);
                 }
+            }
+        } catch (Exception ex){
+
+        }
+
+        return list;
+
+    }
+
+    public List<Servico> retrieveAllServicoData(Map<String, Object> users) {
+
+        Servico servicoData = new Servico();
+        ArrayList<Servico> array = null;
+        List<Servico> list = new ArrayList<>();
+
+        try {
+            for (Map.Entry<String, Object> entry : users.entrySet()) {
+
+                Map singleUser = (Map) entry.getValue();
+                    servicoData = new Servico();
+                    servicoData.problema = singleUser.get("problema").toString();
+                    servicoData.descricao = singleUser.get("descricao").toString();
+                    servicoData.tipo = singleUser.get("tipo").toString();
+                    servicoData.id = singleUser.get("id").toString();
+                    servicoData.email = singleUser.get("email").toString();
+                    list.add(servicoData);
             }
         } catch (Exception ex){
 

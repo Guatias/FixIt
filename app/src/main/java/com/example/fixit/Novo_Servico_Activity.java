@@ -77,7 +77,7 @@ public class Novo_Servico_Activity extends AppCompatActivity {
                 try {
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("tasks");
+                    DatabaseReference myRef = database.getReference("servicos");
 
                     myRef.child(novo.getId()).setValue(novo);
 
@@ -101,6 +101,24 @@ public class Novo_Servico_Activity extends AppCompatActivity {
                 cliente_activity.putExtra("user", user);
                 startActivity(cliente_activity);
                 finish();
+            }
+        });
+
+        novo_serv_problema.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    novo_serv_problema.setHint("");
+                else
+                    novo_serv_problema.setHint("Problema");
+            }
+        });
+
+        novo_serv_descricao.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    novo_serv_descricao.setHint("");
+                else
+                    novo_serv_descricao.setHint("Descrição");
             }
         });
 

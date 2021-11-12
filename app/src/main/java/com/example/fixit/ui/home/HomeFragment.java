@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
     private List<Servico> list = new ArrayList<>();
     private ServicoAdapter.ReciclerViewClickListener listener;
     private UserHelperClass user;
+    private UserHelperClass user_task;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,13 +63,18 @@ public class HomeFragment extends Fragment {
         textView = binding.textHome;
 
         try {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("tasks");
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("servicos");
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Servico servico = new Servico();
-                    list = servico.retrieveServicoData((Map<String, Object>) dataSnapshot.getValue(), user.getEmail());
-                    if(list.isEmpty()) textView.setText("Você não possui nenhum serviço cadastrado. \nClique no botão abaixo para criar um novo!");
+                    if(user.getTipo_conta().equals("Cliente")){
+                        list = servico.retrieveServicoData((Map<String, Object>) dataSnapshot.getValue(), user.getEmail());
+                        if(list.isEmpty()) textView.setText("Você não possui nenhum serviço cadastrado. \nClique no botão abaixo para criar um novo!");
+                    } else {
+                        list = servico.retrieveAllServicoData((Map<String, Object>) dataSnapshot.getValue());
+                        if(list.isEmpty()) textView.setText("Não há nenhum serviço cadastrado no momento. \nRetorne mais tarde!");
+                    }
                     setOnClickListener();
                     servicoAdapter = new ServicoAdapter(new ArrayList<>(list), listener);
                     RecyclerView rv = binding.reciclerViewTasks;
@@ -86,6 +93,12 @@ public class HomeFragment extends Fragment {
         add_button = binding.addButton;
         eletric_button = binding.eletricButton;
         mechanic_button = binding.mechanicButton;
+
+        if (user.getTipo_conta().equals("Profissional")){
+            add_button.setVisibility(View.INVISIBLE);
+            eletric_button.setVisibility(View.INVISIBLE);
+            mechanic_button.setVisibility(View.INVISIBLE);
+        }
 
         eletric_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,10 +129,31 @@ public class HomeFragment extends Fragment {
         listener = new ServicoAdapter.ReciclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Intent editar_servico = new Intent(((Cliente_Activity) getActivity()).getApplicationContext(), Editar_Servico_Activity.class);
-                editar_servico.putExtra("servico", list.get(position));
-                editar_servico.putExtra("user", user);
-                startActivity(editar_servico);
+
+                String email = list.get(position).getEmail();
+
+                try {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            user_task = new UserHelperClass();
+                            user_task.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(),email);
+                            Intent editar_servico = new Intent(((Cliente_Activity) getActivity()).getApplicationContext(), Editar_Servico_Activity.class);
+                            editar_servico.putExtra("servico", list.get(position));
+                            editar_servico.putExtra("user", user);
+                            editar_servico.putExtra("user_task", user_task);
+                            startActivity(editar_servico);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                } catch (Exception ex) {
+                    ((Cliente_Activity) getActivity()).showToast("Ocorreu um erro: " + ex.getMessage());
+                }
             }
         };
     }

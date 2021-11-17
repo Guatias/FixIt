@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Contato_Activity">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/contact_photo"
         android:layout_width="150dp"
         android:layout_height="150dp"

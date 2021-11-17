@@ -77,6 +77,8 @@ public class Editar_Servico_Activity extends AppCompatActivity {
             ((RelativeLayout.LayoutParams) editar_serv_problema.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.edit_serv_tv);
             if (servico.getProposta_aprovada().equals("sim")) {
                 savebtn.setVisibility(View.INVISIBLE);
+                editar_serv_descricao.setEnabled(false);
+                editar_serv_problema.setEnabled(false);
                 View deletebtn_view = findViewById(R.id.edit_serv_delete_button);
                 RelativeLayout.LayoutParams layoutParams =
                         (RelativeLayout.LayoutParams) deletebtn_view.getLayoutParams();

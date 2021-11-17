@@ -107,6 +107,9 @@ public class Nova_Proposta_Activity extends AppCompatActivity {
                 nova_proposta.setStatus("Pendente");
                 nova_proposta.setId(UUID.randomUUID().toString());
                 nova_proposta.setServico_id(servico.getId());
+                nova_proposta.setEmail(user.getEmail());
+                nova_proposta.setEmail_servico(user_task.getEmail());
+                nova_proposta.setServico_problema(servico.getProblema());
 
                 try {
 

@@ -17,8 +17,18 @@ public class Servico implements Parcelable {
     private String tipo;
     private String email;
     private String id;
+    private String proposta_aprovada;
 
     public Servico() {
+    }
+
+    public Servico(String problema, String descricao, String tipo, String email, String id, String proposta_aprovada) {
+        this.problema = problema;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.email = email;
+        this.id = id;
+        this.proposta_aprovada = proposta_aprovada;
     }
 
     protected Servico(Parcel in) {
@@ -27,6 +37,7 @@ public class Servico implements Parcelable {
         tipo = in.readString();
         email = in.readString();
         id = in.readString();
+        proposta_aprovada = in.readString();
     }
 
     public static final Creator<Servico> CREATOR = new Creator<Servico>() {
@@ -81,6 +92,14 @@ public class Servico implements Parcelable {
         this.id = id;
     }
 
+    public String getProposta_aprovada() {
+        return proposta_aprovada;
+    }
+
+    public void setProposta_aprovada(String proposta_aprovada) {
+        this.proposta_aprovada = proposta_aprovada;
+    }
+
     public List<Servico> retrieveServicoData(Map<String, Object> users, String email) {
 
         Servico servicoData = new Servico();
@@ -98,6 +117,7 @@ public class Servico implements Parcelable {
                     servicoData.tipo = singleUser.get("tipo").toString();
                     servicoData.id = singleUser.get("id").toString();
                     servicoData.email = singleUser.get("email").toString();
+                    servicoData.proposta_aprovada = singleUser.get("proposta_aprovada").toString();
                 list.add(servicoData);
                 }
             }
@@ -125,6 +145,7 @@ public class Servico implements Parcelable {
                     servicoData.tipo = singleUser.get("tipo").toString();
                     servicoData.id = singleUser.get("id").toString();
                     servicoData.email = singleUser.get("email").toString();
+                    servicoData.proposta_aprovada = singleUser.get("proposta_aprovada").toString();
                     list.add(servicoData);
             }
         } catch (Exception ex){
@@ -147,5 +168,6 @@ public class Servico implements Parcelable {
         dest.writeString(tipo);
         dest.writeString(email);
         dest.writeString(id);
+        dest.writeString(proposta_aprovada);
     }
 }

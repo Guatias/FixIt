@@ -82,12 +82,10 @@ public class Login_Activity extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             UserHelperClass user = new UserHelperClass();
                                             user.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), email_string);
-                                           // if (user.getTipo_conta().equals("Cliente")) {
                                                 Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
                                                 cliente_activity.putExtra("user", user);
                                                 startActivity(cliente_activity);
                                                 finish();
-                                            //}
                                         }
 
                                         @Override

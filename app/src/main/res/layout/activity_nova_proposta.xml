@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/prop_serv_value"
-        android:layout_below="@+id/prop_serv_description"
+        android:layout_below="@id/prop_serv_description"
         android:background="@drawable/rounded_et"
         android:hint="Valor da Proposta (R$)"
         android:textColorHint="@color/black"

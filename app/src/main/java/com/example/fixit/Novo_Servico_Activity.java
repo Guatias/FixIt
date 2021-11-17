@@ -73,6 +73,7 @@ public class Novo_Servico_Activity extends AppCompatActivity {
                 novo.setTipo(tipo);
                 novo.setEmail(user.getEmail());
                 novo.setId(UUID.randomUUID().toString());
+                novo.setProposta_aprovada("não");
 
                 try {
 

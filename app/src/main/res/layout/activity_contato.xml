@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contato_Activity">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/contact_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="14dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:shapeAppearanceOverlay="@style/Circular"
+        android:backgroundTint="@color/alert"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_name"
+        android:layout_below="@id/contact_photo"
+        android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:text="Gustavo Oliveira de Souza"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_phone_label"
+        android:layout_below="@id/contact_name"
+        android:layout_centerInParent="true"
+        android:text="Celular"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_phone"
+        android:layout_below="@id/contact_phone_label"
+        android:layout_centerInParent="true"
+        android:text="(19) 99125-5377"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_email_label"
+        android:layout_below="@id/contact_phone"
+        android:layout_centerInParent="true"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_email"
+        android:layout_below="@id/contact_email_label"
+        android:layout_centerInParent="true"
+        android:text="gustavoos26@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
+
+</RelativeLayout>

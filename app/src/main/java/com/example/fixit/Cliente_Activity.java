@@ -1,14 +1,19 @@
 package com.example.fixit;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fixit.ui.gallery.GalleryFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -20,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fixit.databinding.ActivityClienteBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 public class Cliente_Activity extends AppCompatActivity {
 
@@ -27,14 +33,25 @@ public class Cliente_Activity extends AppCompatActivity {
     private ActivityClienteBinding binding;
     private UserHelperClass user;
     private FirebaseAuth mAuth;
+    private ImageView foto_usuario;
+    private TextView nome_menu;
     public static Activity ca;
 
     public UserHelperClass getUser() {
         return user;
     }
 
-    public void showToast(String message){
+    public void setUser(UserHelperClass user) {
+        this.user = user;
+    }
+
+    public void showToast(String message) {
         Toast.makeText(Cliente_Activity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void carregarFoto() {
+        nome_menu.setText("Olá " + user.getNome() + "!");
+        Picasso.get().load(user.getFoto()).into(foto_usuario);
     }
 
     @Override
@@ -64,11 +81,17 @@ public class Cliente_Activity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        View navView =  navigationView.inflateHeaderView(R.layout.nav_header_cliente);
-        TextView nome_menu = (TextView)navView.findViewById(R.id.nameMenu);
-        TextView email_menu = (TextView)navView.findViewById(R.id.emailMenu);
+        View navView = navigationView.inflateHeaderView(R.layout.nav_header_cliente);
+        nome_menu = (TextView) navView.findViewById(R.id.nameMenu);
+        TextView email_menu = (TextView) navView.findViewById(R.id.emailMenu);
+        foto_usuario = navView.findViewById(R.id.imageView);
         nome_menu.setText("Olá " + user.getNome() + "!");
         email_menu.setText(user.getEmail());
+
+        if (!user.getFoto().equals("nenhuma")) {
+            Picasso.get().load(user.getFoto()).into(foto_usuario);
+        }
+
     }
 
     @Override

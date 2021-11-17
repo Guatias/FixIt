@@ -7,12 +7,16 @@
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable-v24/circle.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/card_view_bg.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/circle_icon.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/contact_button.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/eletric.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/gradient.xml" value="0.3728205128205128" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_baseline_wb_incandescent_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_menu_camera.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_pendente.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_person_login.xml" value="0.3728205128205128" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/ic_thunder_svgrepo_com.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/rounded_et.xml" value="0.35743589743589743" />
@@ -21,6 +25,8 @@
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/side_nav_bar.xml" value="0.3728205128205128" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/drawable/teste.xml" value="0.3728205128205128" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_cliente.xml" value="0.3016304347826087" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_contato.xml" value="0.33" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_editar_proposta.xml" value="0.33" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_editar_servico.xml" value="0.3625" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/activity_nova_proposta.xml" value="0.20018115942028986" />
@@ -31,8 +37,9 @@
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/content_cliente.xml" value="0.3016304347826087" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/fragment_gallery.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/fragment_home.xml" value="0.33" />
-        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/fragment_slideshow.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/fragment_slideshow.xml" value="0.33" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/nav_header_cliente.xml" value="0.3016304347826087" />
+        <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/proposta_item.xml" value="0.3625" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/rounded_edittext.xml" value="0.20969202898550723" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/servico_item.xml" value="0.3625" />
         <entry key="..\:/Users/Gustavo/StudioProjects/FixIt/app/src/main/res/layout/spinner_item.xml" value="0.1762917933130699" />

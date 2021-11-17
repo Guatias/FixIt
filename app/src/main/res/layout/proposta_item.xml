@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_view_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/prop_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_pendente"
+            android:background="@drawable/circle_icon"
+            android:backgroundTint="@color/alert"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/txt_prop_serv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/prop_icon"
+            android:layout_marginStart="18dp"
+            android:layout_toEndOf="@id/prop_icon"
+            android:text="Serviço: Chuveiro"
+            android:textColor="@color/black"
+            android:textSize="18dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_prop_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_prop_serv"
+            android:layout_alignStart="@id/txt_prop_serv"
+            android:layout_toEndOf="@id/prop_icon"
+            android:singleLine="true"
+            android:text="Proposta Proposta Proposta Proposta Proposta Proposta Proposta Proposta Proposta Proposta "
+            android:textColor="@color/darkerGrey"
+            android:textSize="16dp">
+
+        </TextView>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

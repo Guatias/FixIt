@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import models.Proposta;
@@ -31,7 +32,9 @@ public class Editar_Servico_Activity extends AppCompatActivity {
     private UserHelperClass user;
     private UserHelperClass user_task;
     private DatabaseReference reference_delete;
+    private Servico servico;
     public static Activity es;
+    private boolean tem_proposta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class Editar_Servico_Activity extends AppCompatActivity {
 
         ImageView editar_serv_icon = (ImageView) findViewById(R.id.edit_serv_icon);
         TextView editar_serv_tv = (TextView) findViewById(R.id.edit_serv_tv);
+        TextView editar_serv_prof_tv = (TextView) findViewById(R.id.edit_serv_prof_tv);
         EditText editar_criado_por = (EditText) findViewById(R.id.edit_created_by);
         EditText editar_serv_problema = (EditText) findViewById(R.id.edit_serv_problem);
         EditText editar_serv_descricao = (EditText) findViewById(R.id.edit_serv_description);
@@ -51,9 +55,10 @@ public class Editar_Servico_Activity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        Servico servico = getIntent().getParcelableExtra("servico");
+        servico = getIntent().getParcelableExtra("servico");
         user = getIntent().getParcelableExtra("user");
         user_task = getIntent().getParcelableExtra("user_task");
+        tem_proposta = extras.getBoolean("tem_proposta");
 
         if (user.getTipo_conta().equals("Profissional")) {
             editar_criado_por.setText("Criado por: " + user_task.getNome() + " " + user_task.getSobrenome());
@@ -62,10 +67,23 @@ public class Editar_Servico_Activity extends AppCompatActivity {
             editar_serv_problema.setEnabled(false);
             savebtn.setVisibility(View.INVISIBLE);
             deletebtn.setVisibility(View.INVISIBLE);
+            if (servico.getProposta_aprovada().equals("sim") || tem_proposta) {
+                createbtn.setVisibility(View.INVISIBLE);
+                editar_serv_prof_tv.setText("Você ja criou uma proposta para esse serviço. \n Acesse a aba 'Propostas' para visualizar, editar ou deletar sua proposta");
+            }
         } else {
             createbtn.setVisibility(View.INVISIBLE);
             editar_criado_por.setVisibility(View.INVISIBLE);
             ((RelativeLayout.LayoutParams) editar_serv_problema.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.edit_serv_tv);
+            if (servico.getProposta_aprovada().equals("sim")) {
+                savebtn.setVisibility(View.INVISIBLE);
+                View deletebtn_view = findViewById(R.id.edit_serv_delete_button);
+                RelativeLayout.LayoutParams layoutParams =
+                        (RelativeLayout.LayoutParams) deletebtn_view.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                deletebtn_view.setLayoutParams(layoutParams);
+            }
         }
 
         if (servico.getTipo().equals("Eletrico")) {
@@ -126,17 +144,32 @@ public class Editar_Servico_Activity extends AppCompatActivity {
                 servico.setEmail(user.getEmail());
 
                 try {
-
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("servicos");
 
                     myRef.child(servico.getId()).setValue(servico);
 
-                    Cliente_Activity.ca.finish();
-                    Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
-                    cliente_activity.putExtra("user", user);
-                    startActivity(cliente_activity);
-                    finish();
+                    try {
+                        reference_delete = FirebaseDatabase.getInstance().getReference().child("propostas");
+                        reference_delete.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                atualizarPropostas((Map<String, Object>) dataSnapshot.getValue(), servico.getId());
+                                Cliente_Activity.ca.finish();
+                                Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
+                                cliente_activity.putExtra("user", user);
+                                startActivity(cliente_activity);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    } catch (Exception ex) {
+                        Toast.makeText(Editar_Servico_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (Exception ex) {
                     Toast.makeText(Editar_Servico_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -155,8 +188,8 @@ public class Editar_Servico_Activity extends AppCompatActivity {
                 startActivity(proposta_activity);
             }
         });
-
     }
+
     public void deletarPropostas(Map<String, Object> propostas, String id_servico, DatabaseReference reference) {
 
         Proposta propostaData = new Proposta();
@@ -165,12 +198,32 @@ public class Editar_Servico_Activity extends AppCompatActivity {
             for (Map.Entry<String, Object> entry : propostas.entrySet()) {
 
                 Map singleProposta = (Map) entry.getValue();
-                if (singleProposta.get("problema_id").toString().equals(id_servico)){
+                if (singleProposta.get("servico_id").toString().equals(id_servico)) {
                     reference.child(singleProposta.get("id").toString()).removeValue();
                 }
             }
-        } catch (Exception ex){
+        } catch (Exception ex) {
+            Toast.makeText(Editar_Servico_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    public void atualizarPropostas(Map<String, Object> propostas, String id_servico) {
+
+        HashMap<String, Object> propostamap = new HashMap<>();
+        propostamap.put("servico_problema", servico.getProblema());
+
+        DatabaseReference propostaReference = FirebaseDatabase.getInstance().getReference().child("propostas");
+
+        try {
+            for (Map.Entry<String, Object> entry : propostas.entrySet()) {
+
+                Map singleProposta = (Map) entry.getValue();
+                if (singleProposta.get("servico_id").toString().equals(id_servico)) {
+                    propostaReference.child(singleProposta.get("id").toString()).updateChildren(propostamap);
+                }
+            }
+        } catch (Exception ex) {
+            Toast.makeText(Editar_Servico_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

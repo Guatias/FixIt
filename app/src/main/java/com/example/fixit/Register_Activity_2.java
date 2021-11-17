@@ -120,6 +120,7 @@ public class Register_Activity_2 extends AppCompatActivity {
                 user.setCelular(celular_string);
                 user.setData_nasc(datanasc_string);
                 user.setTipo_conta(tipo_conta_string);
+                user.setFoto("nenhuma");
 
                 try {
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");

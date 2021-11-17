@@ -4,25 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Editar_Servico_Activity">
+    tools:context=".Editar_Proposta_Activity">
 
     <ImageView
-        android:id="@+id/edit_serv_icon"
+        android:id="@+id/edit_prop_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:paddingTop="10dp"
-        android:src="@drawable/idea" />
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_pendente"
+        android:background="@drawable/circle_icon"
+        android:backgroundTint="@color/alert"
+        app:tint="@color/black" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_tv"
-        android:layout_below="@id/edit_serv_icon"
+        android:id="@+id/edit_prop_tv"
+        android:layout_below="@id/edit_prop_icon"
         android:layout_centerInParent="true"
         android:paddingTop="10dp"
-        android:text="Serviço Elétrico"
+        android:text="Proposta"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textAlignment="center"/>
@@ -30,22 +33,37 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_created_by"
-        android:layout_below="@+id/edit_serv_tv"
+        android:id="@+id/edit_prop_created_by"
+        android:layout_below="@+id/edit_prop_tv"
         android:background="@drawable/rounded_et"
-        android:text="Criado por:"
+        android:text="Criada por: "
+        android:singleLine="true"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:layout_margin="10dp"
         android:padding="20dp"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/prop_contact_button"
+        android:layout_alignTop="@id/edit_prop_created_by"
+        android:layout_alignRight="@id/edit_prop_created_by"
+        android:background="@drawable/circle_icon"
+        app:backgroundTint="#7633ED"
+        android:drawableTop="@drawable/ic_baseline_person_24"
+        android:drawableTint="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_problem"
-        android:layout_below="@+id/edit_created_by"
+        android:id="@+id/edit_prop_problem"
+        android:layout_below="@+id/edit_prop_created_by"
         android:background="@drawable/rounded_et"
-        android:hint="Problema"
+        android:hint="Serviço: "
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:layout_margin="10dp"
@@ -54,10 +72,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:id="@+id/edit_serv_description"
-        android:layout_below="@+id/edit_serv_problem"
+        android:id="@+id/edit_prop_description"
+        android:layout_below="@+id/edit_prop_problem"
         android:background="@drawable/rounded_et"
-        android:hint="Descrição"
+        android:hint="Proposta"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
         android:inputType="text|textMultiLine"
@@ -65,49 +83,61 @@
         android:layout_margin="10dp"
         android:padding="20dp"/>
 
-    <TextView
+    <me.abhinay.input.CurrencyEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_prof_tv"
-        android:layout_below="@id/edit_serv_description"
-        android:layout_centerInParent="true"
-        android:paddingTop="20dp"
-        android:text=""
+        android:id="@+id/edit_prop_serv_value"
+        android:layout_below="@id/edit_prop_description"
+        android:background="@drawable/rounded_et"
+        android:hint="Valor da Proposta (R$)"
+        android:textColorHint="@color/black"
         android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textAlignment="center"/>
+        android:layout_margin="10dp"
+        android:inputType="number"
+        android:padding="20dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_save_button"
-        android:text="Salvar"
+        android:id="@+id/edit_prop_approve_button"
+        android:text="Aprovar"
         android:backgroundTint="@color/teal_200"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_delete_button"
-        android:text="Deletar"
+        android:id="@+id/edit_prop_reject_button"
+        android:text="Rejeitar"
         android:backgroundTint="#FF0000"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"/>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_serv_create_button"
-        android:text="Criar Proposta"
+        android:id="@+id/edit_prop_save_button"
+        android:text="Salvar"
         android:backgroundTint="@color/teal_200"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentRight="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_prop_delete_button"
+        android:text="Deletar"
+        android:backgroundTint="#FF0000"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

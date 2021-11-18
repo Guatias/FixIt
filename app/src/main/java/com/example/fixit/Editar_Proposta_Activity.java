@@ -71,6 +71,7 @@ public class Editar_Proposta_Activity extends AppCompatActivity {
             editar_prop_criado_por.setText("Proposta para: " + user_task.getNome());
             approvebtn.setVisibility(View.INVISIBLE);
             rejectbtn.setVisibility(View.INVISIBLE);
+            editar_prop_valor.setText(proposta.getValor());
 
             if (!proposta.getStatus().equals("Pendente")) {
                 savebtn.setVisibility(View.INVISIBLE);
@@ -90,6 +91,7 @@ public class Editar_Proposta_Activity extends AppCompatActivity {
             editar_prop_valor.setEnabled(false);
             deletebtn.setVisibility(View.INVISIBLE);
             savebtn.setVisibility(View.INVISIBLE);
+            editar_prop_valor.setText("Valor da Proposta: R$" + proposta.getValor());
 
             if (!proposta.getStatus().equals("Pendente")) {
                 approvebtn.setVisibility(View.INVISIBLE);
@@ -126,7 +128,6 @@ public class Editar_Proposta_Activity extends AppCompatActivity {
         editar_prop_problema.setEnabled(false);
         editar_prop_problema.setText("Serviço: " + proposta.getServico_problema());
         editar_prop_descricao.setText(proposta.getDescricao());
-        editar_prop_valor.setText(proposta.getValor());
 
 
         contactbtn.setOnClickListener(new View.OnClickListener() {

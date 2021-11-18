@@ -52,6 +52,7 @@ public class Editar_Servico_Activity extends AppCompatActivity {
         MaterialButton savebtn = (MaterialButton) findViewById(R.id.edit_serv_save_button);
         MaterialButton deletebtn = (MaterialButton) findViewById(R.id.edit_serv_delete_button);
         MaterialButton createbtn = (MaterialButton) findViewById(R.id.edit_serv_create_button);
+        MaterialButton contactbtn = (MaterialButton) findViewById(R.id.serv_contact_button);
 
         Bundle extras = getIntent().getExtras();
 
@@ -61,7 +62,7 @@ public class Editar_Servico_Activity extends AppCompatActivity {
         tem_proposta = extras.getBoolean("tem_proposta");
 
         if (user.getTipo_conta().equals("Profissional")) {
-            editar_criado_por.setText("Criado por: " + user_task.getNome() + " " + user_task.getSobrenome());
+            editar_criado_por.setText("Criado por: " + user_task.getNome());
             editar_criado_por.setEnabled(false);
             editar_serv_descricao.setEnabled(false);
             editar_serv_problema.setEnabled(false);
@@ -188,6 +189,15 @@ public class Editar_Servico_Activity extends AppCompatActivity {
                 proposta_activity.putExtra("user_task", user_task);
                 proposta_activity.putExtra("servico", servico);
                 startActivity(proposta_activity);
+            }
+        });
+
+        contactbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contato_activity = new Intent(getApplicationContext(), Contato_Activity.class);
+                contato_activity.putExtra("user_task", user_task);
+                startActivity(contato_activity);
             }
         });
     }

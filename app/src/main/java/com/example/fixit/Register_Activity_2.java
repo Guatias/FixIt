@@ -3,6 +3,7 @@ package com.example.fixit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -74,6 +75,10 @@ public class Register_Activity_2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                ProgressDialog progressDialog = new ProgressDialog(Register_Activity_2.this);
+                progressDialog.setMessage("Validando as Informações");
+                progressDialog.show();
+
                 String cpf_string = cpf.getText().toString();
                 String celular_string = celular.getText().toString();
                 String datanasc_string = datanasc.getText().toString();
@@ -136,6 +141,8 @@ public class Register_Activity_2 extends AppCompatActivity {
 
                             if (allow_continue) {
 
+                                progressDialog.setMessage("Fazendo o Cadastro");
+
                                 email = user.getEmail();
                                 senha = getIntent().getExtras().getString("senha");
 
@@ -166,6 +173,7 @@ public class Register_Activity_2 extends AppCompatActivity {
                                     }
                                 });
                             }
+                            progressDialog.dismiss();
                         }
 
                         @Override

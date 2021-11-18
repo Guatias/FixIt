@@ -74,6 +74,7 @@ public class Editar_Servico_Activity extends AppCompatActivity {
             }
         } else {
             createbtn.setVisibility(View.INVISIBLE);
+            contactbtn.setVisibility(View.INVISIBLE);
             editar_criado_por.setVisibility(View.INVISIBLE);
             ((RelativeLayout.LayoutParams) editar_serv_problema.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.edit_serv_tv);
             if (servico.getProposta_aprovada().equals("sim")) {

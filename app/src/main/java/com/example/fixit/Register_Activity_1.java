@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -47,6 +48,10 @@ public class Register_Activity_1 extends AppCompatActivity {
         proxima_pagina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ProgressDialog progressDialog = new ProgressDialog(Register_Activity_1.this);
+                progressDialog.setMessage("Validando as Informações");
+                progressDialog.show();
 
                 String nome_string = nome.getText().toString();
                 String sobrenome_string = sobrenome.getText().toString();
@@ -116,6 +121,7 @@ public class Register_Activity_1 extends AppCompatActivity {
                                 register2.putExtra("senha", senha_string);
                                 startActivity(register2);
                             }
+                            progressDialog.dismiss();
                         }
 
                         @Override

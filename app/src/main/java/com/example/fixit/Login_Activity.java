@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,8 +41,10 @@ public class Login_Activity extends AppCompatActivity {
         //mAuth.signOut();
         FirebaseUser current_user = mAuth.getCurrentUser();
         if (current_user != null) {
-
-            getAuthenticatedUserData(current_user);
+            ProgressDialog progressDialog = new ProgressDialog(Login_Activity.this);
+            progressDialog.setMessage("Autenticando");
+            progressDialog.show();
+            getAuthenticatedUserData(current_user, progressDialog);
 
         } else {
 
@@ -56,6 +59,10 @@ public class Login_Activity extends AppCompatActivity {
             loginbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    ProgressDialog progressDialog = new ProgressDialog(Login_Activity.this);
+                    progressDialog.setMessage("Autenticando");
+                    progressDialog.show();
 
                     String email_string = username.getText().toString();
                     String senha_string = password.getText().toString();
@@ -86,6 +93,7 @@ public class Login_Activity extends AppCompatActivity {
                                                 cliente_activity.putExtra("user", user);
                                                 startActivity(cliente_activity);
                                                 finish();
+                                                progressDialog.dismiss();
                                         }
 
                                         @Override
@@ -134,7 +142,7 @@ public class Login_Activity extends AppCompatActivity {
         }
     }
 
-    private void getAuthenticatedUserData(FirebaseUser current_user) {
+    private void getAuthenticatedUserData(FirebaseUser current_user, ProgressDialog progressDialog) {
         try {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -147,6 +155,7 @@ public class Login_Activity extends AppCompatActivity {
                         cliente_activity.putExtra("user", user);
                         startActivity(cliente_activity);
                         finish();
+                        progressDialog.dismiss();
                    // }
                 }
 

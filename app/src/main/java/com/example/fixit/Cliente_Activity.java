@@ -51,7 +51,9 @@ public class Cliente_Activity extends AppCompatActivity {
 
     public void carregarFoto() {
         nome_menu.setText("Olá " + user.getNome() + "!");
-        Picasso.get().load(user.getFoto()).into(foto_usuario);
+        if (!user.getFoto().equals("nenhuma")) {
+            Picasso.get().load(user.getFoto()).into(foto_usuario);
+        }
     }
 
     @Override

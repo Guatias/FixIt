@@ -29,6 +29,7 @@
             android:layout_toEndOf="@id/serv_icon"
             android:text="Chuveiro"
             android:textColor="@color/black"
+            android:singleLine="true"
             android:textSize="18dp">
 
         </TextView>

@@ -39,6 +39,19 @@
         android:layout_margin="10dp"
         android:padding="20dp"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/new_prop_contact_button"
+        android:layout_alignTop="@id/prop_created_by"
+        android:layout_alignRight="@id/prop_created_by"
+        android:background="@drawable/circle_icon"
+        app:backgroundTint="#7633ED"
+        android:drawableTop="@drawable/ic_baseline_person_24"
+        android:drawableTint="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="7dp"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

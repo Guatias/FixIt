@@ -1,28 +1,22 @@
-package com.example.fixit.ui.gallery;
+package com.example.fixit.ui.propostas;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.Cliente_Activity;
 import com.example.fixit.Editar_Proposta_Activity;
-import com.example.fixit.Editar_Servico_Activity;
-import com.example.fixit.R;
 import com.example.fixit.UserHelperClass;
 import com.example.fixit.databinding.FragmentGalleryBinding;
-import com.example.fixit.ui.home.ServicoAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,9 +31,9 @@ import models.Proposta;
 import models.PropostaAdapter;
 import models.Servico;
 
-public class GalleryFragment extends Fragment {
+public class PropostasFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private PropostasViewModel propostasViewModel;
     private FragmentGalleryBinding binding;
     private PropostaAdapter propostaAdapter;
     private List<Proposta> list = new ArrayList<>();
@@ -56,8 +50,8 @@ public class GalleryFragment extends Fragment {
 
         user = ((Cliente_Activity) getActivity()).getUser();
 
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        propostasViewModel =
+                new ViewModelProvider(this).get(PropostasViewModel.class);
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -106,6 +100,10 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View v, int position) {
 
+                ProgressDialog progressDialog = new ProgressDialog(((Cliente_Activity) getContext()));
+                progressDialog.setMessage("Carregando");
+                progressDialog.show();
+
                 if (user.getTipo_conta().equals("Cliente")) {
                     email = list.get(position).getEmail();
                 } else {
@@ -121,6 +119,7 @@ public class GalleryFragment extends Fragment {
                             user_task = new UserHelperClass();
                             user_task.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), email);
                             getServicoData(list.get(position), position);
+                            progressDialog.dismiss();
                         }
 
                         @Override

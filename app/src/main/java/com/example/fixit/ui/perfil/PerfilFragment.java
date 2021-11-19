@@ -1,4 +1,4 @@
-package com.example.fixit.ui.slideshow;
+package com.example.fixit.ui.perfil;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -11,21 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fixit.Cliente_Activity;
-import com.example.fixit.Login_Activity;
-import com.example.fixit.R;
 import com.example.fixit.UserHelperClass;
 import com.example.fixit.databinding.FragmentSlideshowBinding;
-import com.example.fixit.ui.gallery.GalleryFragment;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.gms.tasks.Continuation;
@@ -50,7 +43,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SlideshowFragment extends Fragment {
+public class PerfilFragment extends Fragment {
 
     private CircleImageView foto_perfil;
     private MaterialButton savebtn;
@@ -66,7 +59,7 @@ public class SlideshowFragment extends Fragment {
     private StorageTask uploadTask;
     private StorageReference storage_foto_perfil_reference;
 
-    private SlideshowViewModel slideshowViewModel;
+    private PerfilViewModel perfilViewModel;
     private FragmentSlideshowBinding binding;
     private UserHelperClass user;
 
@@ -78,8 +71,8 @@ public class SlideshowFragment extends Fragment {
         storage_foto_perfil_reference = FirebaseStorage.getInstance().getReference("fotos");
         user = ((Cliente_Activity) getActivity()).getUser();
 
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        perfilViewModel =
+                new ViewModelProvider(this).get(PerfilViewModel.class);
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

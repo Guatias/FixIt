@@ -38,7 +38,6 @@ public class Login_Activity extends AppCompatActivity {
         la = this;
 
         mAuth = FirebaseAuth.getInstance();
-        //mAuth.signOut();
         FirebaseUser current_user = mAuth.getCurrentUser();
         if (current_user != null) {
             ProgressDialog progressDialog = new ProgressDialog(Login_Activity.this);
@@ -81,7 +80,6 @@ public class Login_Activity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                //Toast.makeText(MainActivity.this, "Usuario Autenticado com Sucesso", Toast.LENGTH_SHORT).show();
                                 try {
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("usuarios");
                                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,7 +91,6 @@ public class Login_Activity extends AppCompatActivity {
                                                 cliente_activity.putExtra("user", user);
                                                 startActivity(cliente_activity);
                                                 finish();
-                                                progressDialog.dismiss();
                                         }
 
                                         @Override
@@ -103,9 +100,11 @@ public class Login_Activity extends AppCompatActivity {
                                     });
                                 } catch (Exception ex) {
                                     Toast.makeText(Login_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
                             } else {
                                 Toast.makeText(Login_Activity.this, "Usuario ou Senha Inválido", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     });
@@ -150,13 +149,11 @@ public class Login_Activity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserHelperClass user = new UserHelperClass();
                     user.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), current_user.getEmail());
-                    //if (user.getTipo_conta().equals("Cliente")) {
                         Intent cliente_activity = new Intent(getApplicationContext(), Cliente_Activity.class);
                         cliente_activity.putExtra("user", user);
                         startActivity(cliente_activity);
                         finish();
                         progressDialog.dismiss();
-                   // }
                 }
 
                 @Override

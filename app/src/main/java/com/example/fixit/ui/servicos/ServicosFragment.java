@@ -1,31 +1,24 @@
-package com.example.fixit.ui.home;
+package com.example.fixit.ui.servicos;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fixit.Cliente_Activity;
 import com.example.fixit.Editar_Servico_Activity;
 import com.example.fixit.Novo_Servico_Activity;
-import com.example.fixit.R;
 import com.example.fixit.UserHelperClass;
 import com.example.fixit.databinding.FragmentGalleryBinding;
 import com.example.fixit.databinding.FragmentHomeBinding;
-import com.example.fixit.ui.gallery.GalleryFragment;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.database.DataSnapshot;
@@ -40,10 +33,11 @@ import java.util.Map;
 
 import models.Proposta;
 import models.Servico;
+import models.ServicoAdapter;
 
-public class HomeFragment extends Fragment {
+public class ServicosFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private ServicosViewModel servicosViewModel;
     private FragmentHomeBinding binding;
     private FragmentGalleryBinding binding_gallery;
     private ServicoAdapter servicoAdapter;
@@ -63,8 +57,8 @@ public class HomeFragment extends Fragment {
 
         user = ((Cliente_Activity) getActivity()).getUser();
 
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        servicosViewModel =
+                new ViewModelProvider(this).get(ServicosViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -141,6 +135,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v, int position) {
 
+                ProgressDialog progressDialog = new ProgressDialog(((Cliente_Activity) getContext()));
+                progressDialog.setMessage("Carregando");
+                progressDialog.show();
+
                 String email = list.get(position).getEmail();
                 String id = list.get(position).getId();
 
@@ -152,6 +150,7 @@ public class HomeFragment extends Fragment {
                             user_task = new UserHelperClass();
                             user_task.retrieveUserData((Map<String, Object>) dataSnapshot.getValue(), email);
                             checarPropostas(id, position);
+                            progressDialog.dismiss();
                         }
 
                         @Override

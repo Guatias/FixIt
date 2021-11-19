@@ -45,7 +45,6 @@ public class Register_Activity_2 extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, tipo) {
             @Override
             public int getCount() {
-                // to show hint "Select Gender" and don't able to select
                 return tipo.length - 1;
             }
         };

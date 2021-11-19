@@ -41,6 +41,7 @@ public class Nova_Proposta_Activity extends AppCompatActivity {
         EditText prop_serv_valor = (EditText) findViewById(R.id.prop_serv_value);
 
         MaterialButton enviarbtn = (MaterialButton) findViewById(R.id.prop_serv_send_button);
+        MaterialButton contatobtn = (MaterialButton) findViewById(R.id.new_prop_contact_button);
 
         Bundle extras = getIntent().getExtras();
 
@@ -48,7 +49,7 @@ public class Nova_Proposta_Activity extends AppCompatActivity {
         user = getIntent().getParcelableExtra("user");
         user_task = getIntent().getParcelableExtra("user_task");
 
-        prop_criado_por.setText("Proposta para: " + user_task.getNome() + " " + user_task.getSobrenome());
+        prop_criado_por.setText("Proposta para: " + user_task.getNome());
         prop_serv_problema.setText("Problema: " + servico.getProblema());
         prop_criado_por.setEnabled(false);
         prop_serv_problema.setEnabled(false);
@@ -129,6 +130,15 @@ public class Nova_Proposta_Activity extends AppCompatActivity {
                 startActivity(cliente_activity);
                 finish();
 
+            }
+        });
+
+        contatobtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contato_activity = new Intent(getApplicationContext(), Contato_Activity.class);
+                contato_activity.putExtra("user_task", user_task);
+                startActivity(contato_activity);
             }
         });
     }

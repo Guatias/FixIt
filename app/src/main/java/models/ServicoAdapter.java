@@ -1,4 +1,4 @@
-package com.example.fixit.ui.home;
+package models;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fixit.R;
 
 import java.util.ArrayList;
-
-import models.Servico;
 
 public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.ServicoViewHolder> {
 

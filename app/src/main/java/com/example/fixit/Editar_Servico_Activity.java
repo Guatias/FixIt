@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fixit.ui.home.HomeFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,7 +67,10 @@ public class Editar_Servico_Activity extends AppCompatActivity {
             editar_serv_problema.setEnabled(false);
             savebtn.setVisibility(View.INVISIBLE);
             deletebtn.setVisibility(View.INVISIBLE);
-            if (servico.getProposta_aprovada().equals("sim") || tem_proposta) {
+            if(servico.getProposta_aprovada().equals("sim")){
+                editar_serv_prof_tv.setText("O criador desse serviço ja aprovou uma proposta! \n ");
+                createbtn.setVisibility(View.INVISIBLE);
+            } else if (tem_proposta) {
                 createbtn.setVisibility(View.INVISIBLE);
                 editar_serv_prof_tv.setText("Você ja criou uma proposta para esse serviço. \n Acesse a aba 'Propostas' para visualizar, editar ou deletar sua proposta");
             }

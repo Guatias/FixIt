@@ -17,8 +17,8 @@ import com.example.fixit.Cliente_Activity;
 import com.example.fixit.Editar_Servico_Activity;
 import com.example.fixit.Novo_Servico_Activity;
 import com.example.fixit.UserHelperClass;
-import com.example.fixit.databinding.FragmentGalleryBinding;
-import com.example.fixit.databinding.FragmentHomeBinding;
+import com.example.fixit.databinding.FragmentPropostasBinding;
+import com.example.fixit.databinding.FragmentServicoBinding;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.firebase.database.DataSnapshot;
@@ -38,8 +38,8 @@ import models.ServicoAdapter;
 public class ServicosFragment extends Fragment {
 
     private ServicosViewModel servicosViewModel;
-    private FragmentHomeBinding binding;
-    private FragmentGalleryBinding binding_gallery;
+    private FragmentServicoBinding binding;
+    private FragmentPropostasBinding binding_gallery;
     private ServicoAdapter servicoAdapter;
     private List<Servico> list = new ArrayList<>();
     private ServicoAdapter.ReciclerViewClickListener listener;
@@ -60,7 +60,7 @@ public class ServicosFragment extends Fragment {
         servicosViewModel =
                 new ViewModelProvider(this).get(ServicosViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentServicoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         textView = binding.textHome;

@@ -61,39 +61,47 @@ public class Register_Activity_1 extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(nome_string)) {
                     nome.setError("Preencha com seu nome");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(sobrenome_string)) {
                     sobrenome.setError("Preencha com seu sobrenome");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email_string)) {
                     email.setError("Preencha com seu email");
+                    progressDialog.dismiss();
                     return;
                 } else if (!isValidEmailAddress(email_string)) {
                     email.setError("Insira um email válido");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(senha_string)) {
                     senha.setError("Crie uma senha");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (senha_string.length() < 6) {
                     senha.setError("Senha deve conter no minimo 6 caracteres");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(confirmar_senha_string)) {
                     confirmar_senha.setError("Confirme sua senha");
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (!confirmar_senha_string.equals(senha_string)) {
                     confirmar_senha.setError("Senhas não coincidem");
+                    progressDialog.dismiss();
                     return;
                 }
 

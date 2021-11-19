@@ -88,31 +88,43 @@ public class Register_Activity_2 extends AppCompatActivity {
                 if (TextUtils.isEmpty(cpf_string)) {
                     cpf.setError("Preencha com seu CPF");
                     allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 } else if (cpf_string.length() != 11) {
                     cpf.setError("CPF Inválido");
+                    allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(celular_string)) {
                     celular.setError("Preencha com o numero de seu celular");
                     allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 } else if (celular_string.length() != 14) {
                     celular.setError("Número Inválido");
+                    allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(datanasc_string)) {
                     datanasc.setError("Preencha com sua data de nascimento");
+                    allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 } else if (datanasc_string.length() != 10) {
                     datanasc.setError("Data Inválida");
+                    allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (tipo_conta.getSelectedItem().toString() == "Tipo da Conta") {
                     Toast.makeText(Register_Activity_2.this, "Selecione o tipo da conta", Toast.LENGTH_SHORT).show();
+                    allow_continue = false;
+                    progressDialog.dismiss();
                     return;
                 }
 

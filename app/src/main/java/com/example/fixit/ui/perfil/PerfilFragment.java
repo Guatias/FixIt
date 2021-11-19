@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fixit.Cliente_Activity;
 import com.example.fixit.UserHelperClass;
-import com.example.fixit.databinding.FragmentSlideshowBinding;
+import com.example.fixit.databinding.FragmentPerfilBinding;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.gms.tasks.Continuation;
@@ -60,7 +60,7 @@ public class PerfilFragment extends Fragment {
     private StorageReference storage_foto_perfil_reference;
 
     private PerfilViewModel perfilViewModel;
-    private FragmentSlideshowBinding binding;
+    private FragmentPerfilBinding binding;
     private UserHelperClass user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -74,7 +74,7 @@ public class PerfilFragment extends Fragment {
         perfilViewModel =
                 new ViewModelProvider(this).get(PerfilViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         foto_perfil = binding.profilePic;

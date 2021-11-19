@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fixit.Cliente_Activity;
 import com.example.fixit.Editar_Proposta_Activity;
 import com.example.fixit.UserHelperClass;
-import com.example.fixit.databinding.FragmentGalleryBinding;
+import com.example.fixit.databinding.FragmentPropostasBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +34,7 @@ import models.Servico;
 public class PropostasFragment extends Fragment {
 
     private PropostasViewModel propostasViewModel;
-    private FragmentGalleryBinding binding;
+    private FragmentPropostasBinding binding;
     private PropostaAdapter propostaAdapter;
     private List<Proposta> list = new ArrayList<>();
     private PropostaAdapter.ReciclerViewClickListener listener;
@@ -53,7 +53,7 @@ public class PropostasFragment extends Fragment {
         propostasViewModel =
                 new ViewModelProvider(this).get(PropostasViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentPropostasBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         criarLista();

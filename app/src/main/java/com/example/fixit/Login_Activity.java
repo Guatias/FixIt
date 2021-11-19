@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Login_Activity extends AppCompatActivity {
 
@@ -51,6 +54,7 @@ public class Login_Activity extends AppCompatActivity {
 
             TextView username = (TextView) findViewById(R.id.username);
             TextView password = (TextView) findViewById(R.id.password);
+            TextView esqueceu_senha = (TextView) findViewById(R.id.forgetpwd);
 
             MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
             MaterialButton registerbtn = (MaterialButton) findViewById(R.id.registerbtn);
@@ -68,11 +72,17 @@ public class Login_Activity extends AppCompatActivity {
 
                     if (TextUtils.isEmpty(email_string)) {
                         username.setError("Insira seu email");
+                        progressDialog.dismiss();
+                        return;
+                    } else if (!isValidEmailAddress(email_string)) {
+                        username.setError("Insira um email válido");
+                        progressDialog.dismiss();
                         return;
                     }
 
                     if (TextUtils.isEmpty(senha_string)) {
                         password.setError("Insira sua senha");
+                        progressDialog.dismiss();
                         return;
                     }
 
@@ -108,6 +118,14 @@ public class Login_Activity extends AppCompatActivity {
                             }
                         }
                     });
+                }
+            });
+
+            esqueceu_senha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent recuperar_senha = new Intent(getApplicationContext(), Recuperar_Senha_Activity.class);
+                    startActivity(recuperar_senha);
                 }
             });
 
@@ -164,5 +182,12 @@ public class Login_Activity extends AppCompatActivity {
         } catch (Exception ex) {
             Toast.makeText(Login_Activity.this, "Ocorreu um erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPat.matcher(email);
+        return matcher.find();
     }
 }

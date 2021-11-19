@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.example.fixit.ui.servicos.ServicosFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_servico" >
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
             app:destination="@id/nav_gallery" />
@@ -19,11 +19,11 @@
         android:id="@+id/nav_gallery"
         android:name="com.example.fixit.ui.propostas.PropostasFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_propostas" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.fixit.ui.perfil.PerfilFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_perfil" />
 </navigation>
